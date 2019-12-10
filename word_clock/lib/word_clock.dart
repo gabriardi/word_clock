@@ -6,7 +6,8 @@ import 'dart:async';
 
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import './models/word_time.dart';
 
 enum _Element {
   background,
@@ -15,20 +16,16 @@ enum _Element {
 }
 
 final _lightTheme = {
-  _Element.background: Color(0xFF81B3FE),
-  _Element.text: Colors.white,
-  _Element.shadow: Colors.black,
+  _Element.background: Color.fromRGBO(245, 245, 245, 1),
+  // _Element.background: Colors.white,
+  _Element.text: Color.fromRGBO(33, 33, 33, 1),
 };
 
 final _darkTheme = {
-  _Element.background: Colors.black,
-  _Element.text: Colors.white,
-  _Element.shadow: Color(0xFF174EA6),
+  _Element.background: Color.fromRGBO(33, 33, 33, 1),
+  _Element.text: Color.fromRGBO(245, 245, 245, 1),
 };
 
-/// A basic digital clock.
-///
-/// You can do better than this!
 class WordClock extends StatefulWidget {
   const WordClock(this.model);
 
@@ -39,7 +36,7 @@ class WordClock extends StatefulWidget {
 }
 
 class _WordClockState extends State<WordClock> {
-  DateTime _dateTime = DateTime.now();
+  WordTime _wordTime = WordTime(0, 0);
   Timer _timer;
 
   @override
@@ -75,21 +72,21 @@ class _WordClockState extends State<WordClock> {
 
   void _updateTime() {
     setState(() {
-      _dateTime = DateTime.now();
+      // _wordTime = WordTime.now();
       // Update once per minute. If you want to update every second, use the
       // following code.
-      _timer = Timer(
-        Duration(minutes: 1) -
-            Duration(seconds: _dateTime.second) -
-            Duration(milliseconds: _dateTime.millisecond),
-        _updateTime,
-      );
-      // Update once per second, but make sure to do it at the beginning of each
-      // new second, so that the clock is accurate.
       // _timer = Timer(
-      //   Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
+      //   Duration(minutes: 1) -
+      //       Duration(seconds: _wordTime.second) -
+      //       Duration(milliseconds: _wordTime.millisecond),
       //   _updateTime,
       // );
+      // Update once per second, but make sure to do it at the beginning of each
+      // new second, so that the clock is accurate.
+      _timer = Timer(
+        Duration(seconds: 1) - Duration(milliseconds: _wordTime.millisecond),
+        _updateTime,
+      );
     });
   }
 
@@ -98,33 +95,88 @@ class _WordClockState extends State<WordClock> {
     final colors = Theme.of(context).brightness == Brightness.light
         ? _lightTheme
         : _darkTheme;
-    final hour =
-        DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
-    final minute = DateFormat('mm').format(_dateTime);
-    final fontSize = MediaQuery.of(context).size.width / 3.5;
-    final offset = -fontSize / 7;
+
     final defaultStyle = TextStyle(
       color: colors[_Element.text],
-      // fontFamily: 'PressStart2P',
-      fontSize: fontSize,
-      shadows: [
-        Shadow(
-          blurRadius: 0,
-          color: colors[_Element.shadow],
-          offset: Offset(10, 0),
-        ),
-      ],
     );
 
     return Container(
       color: colors[_Element.background],
-      child: Center(
-        child: DefaultTextStyle(
-          style: defaultStyle,
-          child: Stack(
+      child: DefaultTextStyle(
+        style: defaultStyle,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Positioned(left: offset, top: 0, child: Text(hour)),
-              Positioned(right: offset, bottom: offset, child: Text(minute)),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'it\'s',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 60,
+                  ),
+                ),
+              ),
+              _wordTime.wordMinute == ''
+                  ? FittedBox(
+                      fit: BoxFit.contain,
+                      alignment: Alignment.center,
+                      child: Text(
+                        _wordTime.minute == 0
+                            ? _wordTime.wordHour
+                            : _wordTime.wordMinute,
+                        style: TextStyle(
+                          fontFamily: 'JuliusSansOne',
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      //flex: 2,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        alignment: Alignment.center,
+                        child: Text(
+                          _wordTime.minute == 0
+                              ? _wordTime.wordHour
+                              : _wordTime.wordMinute,
+                          style: TextStyle(
+                            fontFamily: 'JuliusSansOne',
+                          ),
+                        ),
+                      ),
+                    ),
+              _wordTime.wordMinute == ''
+                  ? Container()
+                  : Expanded(
+                      //flex: 2,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        alignment: Alignment.center,
+                        child: Text(
+                          _wordTime.minute == 0
+                              ? _wordTime.wordMinute
+                              : _wordTime.wordHour,
+                          style: TextStyle(
+                            fontFamily: 'JuliusSansOne',
+                          ),
+                        ),
+                      ),
+                    ),
+              // Bottom right corner shows a.m. or p.m. in case needed
+              (_wordTime.amPm == '')
+                  ? Container()
+                  : Align(
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        _wordTime.amPm,
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 60,
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

@@ -18,7 +18,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  # fonts:
-  #   - family: PressStart2P
-  #     fonts:
-  #       - asset: third_party/PressStart2P-Regular.ttf
+  fonts:
+    - family: JuliusSansOne
+      fonts:
+        - asset: assets/fonts/Julius_Sans_One/JuliusSansOne-Regular.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/Open_Sans/OpenSans-Light.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Thin.ttf
