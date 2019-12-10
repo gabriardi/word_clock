@@ -36,7 +36,8 @@ class WordClock extends StatefulWidget {
 }
 
 class _WordClockState extends State<WordClock> {
-  WordTime _wordTime = WordTime(0, 0);
+  // TODO remove debug
+  WordTime _wordTime = WordTime(11, 2);
   Timer _timer;
 
   @override
@@ -92,6 +93,7 @@ class _WordClockState extends State<WordClock> {
 
   @override
   Widget build(BuildContext context) {
+    const _fixFontSize = 60.0;
     final colors = Theme.of(context).brightness == Brightness.light
         ? _lightTheme
         : _darkTheme;
@@ -109,30 +111,20 @@ class _WordClockState extends State<WordClock> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'it\'s',
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 60,
+              // top left corner
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'it\'s',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: _fixFontSize,
+                    ),
                   ),
                 ),
               ),
-              // top left corner
-              // Expanded(
-              //   flex: 1,
-              //   child: FittedBox(
-              //     alignment: Alignment.topLeft,
-              //     fit: BoxFit.contain,
-              //     child: Text(
-              //       'it\'s',
-              //       style: TextStyle(
-              //         fontFamily: 'Roboto',
-              //       ),
-              //     ),
-              //   ),
-              // ),
               _wordTime.wordMinute == ''
                   ? FittedBox(
                       fit: BoxFit.contain,
@@ -148,7 +140,7 @@ class _WordClockState extends State<WordClock> {
                       ),
                     )
                   : Expanded(
-                      //flex: 2,
+                      flex: 2,
                       child: FittedBox(
                         fit: BoxFit.contain,
                         alignment: Alignment.center,
@@ -166,7 +158,7 @@ class _WordClockState extends State<WordClock> {
               _wordTime.wordMinute == ''
                   ? Container()
                   : Expanded(
-                      //flex: 2,
+                      flex: 2,
                       child: FittedBox(
                         fit: BoxFit.contain,
                         alignment: Alignment.center,
@@ -181,30 +173,19 @@ class _WordClockState extends State<WordClock> {
                       ),
                     ),
               // Bottom right corner shows a.m. or p.m. in case needed
-              (_wordTime.amPm == '')
-                  ? Container()
-                  : Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        _wordTime.amPm,
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 60,
-                        ),
-                      ),
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    _wordTime.amPm,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: _fixFontSize,
                     ),
-              // Expanded(
-              //     flex: 1,
-              //     child: FittedBox(
-              //       alignment: Alignment.bottomRight,
-              //       child: Text(
-              //         _wordTime.amPm,
-              //         style: TextStyle(
-              //           fontFamily: 'Roboto',
-              //         ),
-              //       ),
-              //     ),
-              //   )
+                  ),
+                ),
+              ),
             ],
           ),
         ),
