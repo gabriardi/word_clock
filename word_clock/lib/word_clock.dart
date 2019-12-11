@@ -94,6 +94,9 @@ class _WordClockState extends State<WordClock> {
   @override
   Widget build(BuildContext context) {
     const _fixFontSize = 60.0;
+    const _mainFont = 'JuliusSansOne';
+    const _secondaryFont = 'Roboto';
+
     final colors = Theme.of(context).brightness == Brightness.light
         ? _lightTheme
         : _darkTheme;
@@ -119,7 +122,7 @@ class _WordClockState extends State<WordClock> {
                   child: Text(
                     'it\'s',
                     style: TextStyle(
-                      fontFamily: 'Roboto',
+                      fontFamily: _secondaryFont,
                       fontSize: _fixFontSize,
                     ),
                   ),
@@ -134,7 +137,7 @@ class _WordClockState extends State<WordClock> {
                             ? _wordTime.wordHour
                             : _wordTime.wordMinute,
                         style: TextStyle(
-                          fontFamily: 'JuliusSansOne',
+                          fontFamily: _mainFont,
                           // fontSize: 3430,
                         ),
                       ),
@@ -149,7 +152,7 @@ class _WordClockState extends State<WordClock> {
                               ? _wordTime.wordHour
                               : _wordTime.wordMinute,
                           style: TextStyle(
-                            fontFamily: 'JuliusSansOne',
+                            fontFamily: _mainFont,
                             // fontSize: 3430,
                           ),
                         ),
@@ -180,7 +183,7 @@ class _WordClockState extends State<WordClock> {
                   child: Text(
                     _wordTime.amPm,
                     style: TextStyle(
-                      fontFamily: 'Roboto',
+                      fontFamily: _secondaryFont,
                       fontSize: _fixFontSize,
                     ),
                   ),
