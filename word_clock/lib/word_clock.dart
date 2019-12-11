@@ -37,7 +37,7 @@ class WordClock extends StatefulWidget {
 
 class _WordClockState extends State<WordClock> {
   // TODO remove debug
-  WordTime _wordTime = WordTime(11, 2);
+  WordTime _wordTime = WordTime.now();
   Timer _timer;
 
   @override
@@ -73,7 +73,7 @@ class _WordClockState extends State<WordClock> {
 
   void _updateTime() {
     setState(() {
-      // _wordTime = WordTime.now();
+      _wordTime = WordTime.now();
       // Update once per minute. If you want to update every second, use the
       // following code.
       // _timer = Timer(

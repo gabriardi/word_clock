@@ -60,7 +60,7 @@ class WordTime extends DateTime {
       (h == 0 && m <= 30) ? _amPm = '' : _amPm = 'a.m.';
     } else {
       if (h == 12 && m <= 30) {
-        _amPm = '';
+        _amPm = 'a.m.';
       } else {
         _amPm = 'p.m.';
         h = h % 12;
@@ -81,18 +81,31 @@ class WordTime extends DateTime {
     } else if (m == 15) {
       _wordMinute = 'quarter past';
       _wordHour = _wordNumber[h];
+      if (h == 12) _amPm = '';
     } else if (m == 30) {
       _wordMinute = 'half past';
       _wordHour = _wordNumber[h];
+      if (h == 12) _amPm = '';
     } else if (m == 45) {
       _wordMinute = 'quarter to';
-      _wordHour = (_wordNumber[h + 1]);
+      if (h == 11 && _amPm == 'p.m.') {
+        _wordHour = (_wordNumber[0]);
+      } else {
+        _wordHour = (_wordNumber[h + 1]);
+      }
+      if (h + 1 == 12) _amPm = '';
     } else if (m <= 30) {
       _wordMinute = '${_wordNumber[m]} past';
       _wordHour = _wordNumber[h];
+      if (h == 12) _amPm = '';
     } else if (m > 30) {
       _wordMinute = '${_wordNumber[60 - m]} to';
-      _wordHour = _wordNumber[h + 1];
+      if (h == 11 && _amPm == 'p.m.') {
+        _wordHour = (_wordNumber[0]);
+      } else {
+        _wordHour = (_wordNumber[h + 1]);
+      }
+      if (h + 1 == 12) _amPm = '';
     }
   }
 
