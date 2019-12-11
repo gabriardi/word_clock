@@ -93,7 +93,7 @@ class _WordClockState extends State<WordClock> {
 
   @override
   Widget build(BuildContext context) {
-    const _fixFontSize = 60.0;
+    const _maxFontSize = 60.0;
     const _mainFont = 'JuliusSansOne';
     const _secondaryFont = 'Roboto';
 
@@ -117,13 +117,14 @@ class _WordClockState extends State<WordClock> {
               // top left corner
               Expanded(
                 flex: 1,
-                child: Align(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
                   alignment: Alignment.topLeft,
                   child: Text(
                     'it\'s',
                     style: TextStyle(
                       fontFamily: _secondaryFont,
-                      fontSize: _fixFontSize,
+                      fontSize: _maxFontSize,
                     ),
                   ),
                 ),
@@ -138,7 +139,6 @@ class _WordClockState extends State<WordClock> {
                             : _wordTime.wordMinute,
                         style: TextStyle(
                           fontFamily: _mainFont,
-                          // fontSize: 3430,
                         ),
                       ),
                     )
@@ -153,7 +153,6 @@ class _WordClockState extends State<WordClock> {
                               : _wordTime.wordMinute,
                           style: TextStyle(
                             fontFamily: _mainFont,
-                            // fontSize: 3430,
                           ),
                         ),
                       ),
@@ -178,13 +177,14 @@ class _WordClockState extends State<WordClock> {
               // Bottom right corner shows a.m. or p.m. in case needed
               Expanded(
                 flex: 1,
-                child: Align(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
                   alignment: Alignment.bottomRight,
                   child: Text(
                     _wordTime.amPm,
                     style: TextStyle(
                       fontFamily: _secondaryFont,
-                      fontSize: _fixFontSize,
+                      fontSize: _maxFontSize,
                     ),
                   ),
                 ),
