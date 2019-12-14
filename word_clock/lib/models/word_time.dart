@@ -36,15 +36,16 @@ class WordTime extends DateTime {
     "twenty-nine",
   ];
 
-// TODO DEBUG
-  WordTime(int hour, int minute)
+  WordTime(int year,
+      [int month = 1,
+      int day = 1,
+      int hour = 0,
+      int minute = 0,
+      int second = 0,
+      int millisecond = 0,
+      int microsecond = 0])
       : super(
-          2019,
-          1,
-          1,
-          hour,
-          minute,
-        ) {
+            year, month, day, hour, minute, second, millisecond, microsecond) {
     _timeToWords();
   }
 

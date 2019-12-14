@@ -38,6 +38,7 @@ class WordClock extends StatefulWidget {
 class _WordClockState extends State<WordClock> {
   // TODO remove debug
   WordTime _wordTime = WordTime.now();
+  // WordTime _wordTime = WordTime(2019, 1, 1, 12, 45);
   Timer _timer;
 
   @override
