@@ -93,7 +93,7 @@ class WordTime extends DateTime {
         _amPm = 'a.m.';
       } else {
         _amPm = 'p.m.';
-        h = h % 12;
+        if (h != 12 || m == 45) h = h % 12;
       }
     }
 
@@ -123,7 +123,7 @@ class WordTime extends DateTime {
       }
       if (h + 1 == 12) _amPm = '';
     } else {
-      if (h == 12) _amPm = '';
+      if (h == 12 || h == 0) _amPm = '';
       _wordTime['line1'] = _wordNumber[h];
       _wordTime['line2'] = _wordNumber[m];
     }
