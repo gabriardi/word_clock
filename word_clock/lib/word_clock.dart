@@ -37,8 +37,8 @@ class WordClock extends StatefulWidget {
 
 class _WordClockState extends State<WordClock> {
   // TODO remove debug
-  WordTime _wordTime = WordTime.now();
-  // WordTime _wordTime = WordTime(2019, 1, 1, 12, 45);
+  // WordTime _wordTime = WordTime.now();
+  WordTime _wordTime = WordTime(2019, 1, 1, 0, 40);
   Timer _timer;
 
   @override
@@ -74,7 +74,7 @@ class _WordClockState extends State<WordClock> {
 
   void _updateTime() {
     setState(() {
-      _wordTime = WordTime.now();
+      //     _wordTime = WordTime.now();
       // Update once per minute. If you want to update every second, use the
       // following code.
       // _timer = Timer(
@@ -130,35 +130,20 @@ class _WordClockState extends State<WordClock> {
                   ),
                 ),
               ),
-              _wordTime.wordMinute == ''
-                  ? FittedBox(
-                      fit: BoxFit.contain,
-                      alignment: Alignment.center,
-                      child: Text(
-                        _wordTime.minute == 0
-                            ? _wordTime.wordHour
-                            : _wordTime.wordMinute,
-                        style: TextStyle(
-                          fontFamily: _mainFont,
-                        ),
-                      ),
-                    )
-                  : Expanded(
-                      flex: 2,
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        alignment: Alignment.center,
-                        child: Text(
-                          _wordTime.minute == 0
-                              ? _wordTime.wordHour
-                              : _wordTime.wordMinute,
-                          style: TextStyle(
-                            fontFamily: _mainFont,
-                          ),
-                        ),
-                      ),
+              Expanded(
+                flex: 2,
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  alignment: Alignment.center,
+                  child: Text(
+                    _wordTime.wordTime['line1'],
+                    style: TextStyle(
+                      fontFamily: _mainFont,
                     ),
-              _wordTime.wordMinute == ''
+                  ),
+                ),
+              ),
+              _wordTime.wordTime['line2'] == ''
                   ? Container()
                   : Expanded(
                       flex: 2,
@@ -166,11 +151,9 @@ class _WordClockState extends State<WordClock> {
                         fit: BoxFit.contain,
                         alignment: Alignment.center,
                         child: Text(
-                          _wordTime.minute == 0
-                              ? _wordTime.wordMinute
-                              : _wordTime.wordHour,
+                          _wordTime.wordTime['line2'],
                           style: TextStyle(
-                            fontFamily: 'JuliusSansOne',
+                            fontFamily: _mainFont,
                           ),
                         ),
                       ),

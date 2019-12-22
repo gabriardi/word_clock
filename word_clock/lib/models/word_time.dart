@@ -2,6 +2,7 @@ class WordTime extends DateTime {
   String _wordMinute;
   String _wordHour;
   String _amPm;
+  var _wordTime = {'line1': '', 'line2': ''};
 
   static const _wordNumber = [
     "midnight",
@@ -102,51 +103,63 @@ class WordTime extends DateTime {
       _wordMinute = '';
       _wordHour = 'midday';
       _amPm = '';
+      _wordTime['line1'] = _wordHour;
     } else if (m == 0 && h == 0) {
       _wordMinute = '';
       _wordHour = 'midnight';
       _amPm = '';
+      _wordTime['line1'] = _wordHour;
     } else if (m == 0) {
       _wordHour = _wordNumber[h];
       _wordMinute = 'o\' clock';
+      _wordTime['line1'] = _wordHour;
+      _wordTime['line2'] = _wordMinute;
     } else if (m == 15) {
       _wordMinute = 'quarter past';
       _wordHour = _wordNumber[h];
+      _wordTime['line1'] = _wordMinute;
+      _wordTime['line2'] = _wordHour;
+
       if (h == 12) _amPm = '';
     } else if (m == 30) {
       _wordMinute = 'half past';
       _wordHour = _wordNumber[h];
+      _wordTime['line1'] = _wordMinute;
+      _wordTime['line2'] = _wordHour;
+
       if (h == 12) _amPm = '';
     } else if (m == 45) {
       _wordMinute = 'quarter to';
+      _wordTime['line1'] = _wordMinute;
+
       if (h == 11 && _amPm == 'p.m.') {
         _wordHour = (_wordNumber[0]);
+        _wordTime['line2'] = _wordHour;
       } else {
         _wordHour = (_wordNumber[h + 1]);
+        _wordTime['line2'] = _wordHour;
       }
       if (h + 1 == 12) _amPm = '';
-    } else if (m <= 30) {
-      _wordMinute = '${_wordNumber[m]} past';
+    } else {
+      _wordMinute = _wordNumber[m];
       _wordHour = _wordNumber[h];
       if (h == 12) _amPm = '';
-    } else if (m > 30) {
-      _wordMinute = '${_wordNumber[60 - m]} to';
-      if (h == 11 && _amPm == 'p.m.') {
-        _wordHour = (_wordNumber[0]);
-      } else {
-        _wordHour = (_wordNumber[h + 1]);
-      }
-      if (h + 1 == 12) _amPm = '';
+      _wordTime['line1'] = _wordHour;
+      _wordTime['line2'] = _wordMinute;
     }
   }
 
-  String get wordMinute {
-    return _wordMinute;
+  Map<String, String> get wordTime {
+    return _wordTime;
   }
 
-  String get wordHour {
-    return _wordHour;
-  }
+  // String get wordMinute {
+  //   return _wordMinute;
+  // }
+
+  // String get wordHour {
+  //   return _wordHour;
+  // }
 
   String get amPm {
     return _amPm;
