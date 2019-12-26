@@ -136,14 +136,14 @@ class _WordClockState extends State<WordClock> {
                   fit: BoxFit.contain,
                   alignment: Alignment.center,
                   child: Text(
-                    _wordTime.wordTime['line1'],
+                    _wordTime.line1,
                     style: TextStyle(
                       fontFamily: _mainFont,
                     ),
                   ),
                 ),
               ),
-              _wordTime.wordTime['line2'] == ''
+              _wordTime.line2 == ''
                   ? Container()
                   : Expanded(
                       flex: 2,
@@ -151,7 +151,7 @@ class _WordClockState extends State<WordClock> {
                         fit: BoxFit.contain,
                         alignment: Alignment.center,
                         child: Text(
-                          _wordTime.wordTime['line2'],
+                          _wordTime.line2,
                           style: TextStyle(
                             fontFamily: _mainFont,
                           ),

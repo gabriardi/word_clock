@@ -1,6 +1,5 @@
 class WordTime extends DateTime {
-  String _amPm;
-  var _wordTime = {'line1': '', 'line2': ''};
+  var _wordTime = {'line1': '', 'line2': '', 'amPm': ''};
 
   static const _wordNumber = [
     "midnight",
@@ -82,26 +81,38 @@ class WordTime extends DateTime {
     _timeToWords();
   }
 
+  String get line1 {
+    return _wordTime['line1'];
+  }
+
+  String get line2 {
+    return _wordTime['line2'];
+  }
+
+  String get amPm {
+    return _wordTime['amPm'];
+  }
+
   void _timeToWords() {
     final m = this.minute;
     int h = this.hour;
 
     if (h < 12) {
-      (h == 0 && m <= 30) ? _amPm = '' : _amPm = 'a.m.';
+      (h == 0 && m <= 30) ? _wordTime['amPm'] = '' : _wordTime['amPm'] = 'a.m.';
     } else {
       if (h == 12 && m <= 30) {
-        _amPm = 'a.m.';
+        _wordTime['amPm'] = 'a.m.';
       } else {
-        _amPm = 'p.m.';
+        _wordTime['amPm'] = 'p.m.';
         if (h != 12 || m == 45) h = h % 12;
       }
     }
 
     if (m == 0 && h == 12) {
-      _amPm = '';
+      _wordTime['amPm'] = '';
       _wordTime['line1'] = 'midday';
     } else if (m == 0 && h == 0) {
-      _amPm = '';
+      _wordTime['amPm'] = '';
       _wordTime['line1'] = 'midnight';
     } else if (m == 0) {
       _wordTime['line1'] = _wordNumber[h];
@@ -109,31 +120,23 @@ class WordTime extends DateTime {
     } else if (m == 15) {
       _wordTime['line1'] = 'quarter past';
       _wordTime['line2'] = _wordNumber[h];
-      if (h == 12) _amPm = '';
+      if (h == 12) _wordTime['amPm'] = '';
     } else if (m == 30) {
       _wordTime['line1'] = 'half past';
       _wordTime['line2'] = _wordNumber[h];
-      if (h == 12) _amPm = '';
+      if (h == 12) _wordTime['amPm'] = '';
     } else if (m == 45) {
       _wordTime['line1'] = 'quarter to';
-      if (h == 11 && _amPm == 'p.m.') {
+      if (h == 11 && _wordTime['amPm'] == 'p.m.') {
         _wordTime['line2'] = _wordNumber[0];
       } else {
         _wordTime['line2'] = _wordNumber[h + 1];
       }
-      if (h + 1 == 12) _amPm = '';
+      if (h + 1 == 12) _wordTime['amPm'] = '';
     } else {
-      if (h == 12 || h == 0) _amPm = '';
+      if (h == 12 || h == 0) _wordTime['amPm'] = '';
       _wordTime['line1'] = _wordNumber[h];
       _wordTime['line2'] = _wordNumber[m];
     }
-  }
-
-  Map<String, String> get wordTime {
-    return _wordTime;
-  }
-
-  String get amPm {
-    return _amPm;
   }
 }
