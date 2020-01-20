@@ -17,7 +17,6 @@ enum _Element {
 
 final _lightTheme = {
   _Element.background: Color.fromRGBO(245, 245, 245, 1),
-  // _Element.background: Colors.white,
   _Element.text: Color.fromRGBO(33, 33, 33, 1),
 };
 
@@ -36,9 +35,7 @@ class WordClock extends StatefulWidget {
 }
 
 class _WordClockState extends State<WordClock> {
-  // TODO remove debug
-  // WordTime _wordTime = WordTime.now();
-  WordTime _wordTime = WordTime(2019, 1, 1, 0, 45);
+  WordTime _wordTime = WordTime.now();
   Timer _timer;
 
   @override
@@ -74,21 +71,21 @@ class _WordClockState extends State<WordClock> {
 
   void _updateTime() {
     setState(() {
-      //     _wordTime = WordTime.now();
+      _wordTime = WordTime.now();
       // Update once per minute. If you want to update every second, use the
       // following code.
-      // _timer = Timer(
-      //   Duration(minutes: 1) -
-      //       Duration(seconds: _wordTime.second) -
-      //       Duration(milliseconds: _wordTime.millisecond),
-      //   _updateTime,
-      // );
-      // Update once per second, but make sure to do it at the beginning of each
-      // new second, so that the clock is accurate.
       _timer = Timer(
-        Duration(seconds: 1) - Duration(milliseconds: _wordTime.millisecond),
+        Duration(minutes: 1) -
+            Duration(seconds: _wordTime.second) -
+            Duration(milliseconds: _wordTime.millisecond),
         _updateTime,
       );
+      // Update once per second, but make sure to do it at the beginning of each
+      // new second, so that the clock is accurate.
+      //   _timer = Timer(
+      //     Duration(seconds: 1) - Duration(milliseconds: _wordTime.millisecond),
+      //     _updateTime,
+      //   );
     });
   }
 
