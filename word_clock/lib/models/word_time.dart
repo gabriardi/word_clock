@@ -133,6 +133,10 @@ class WordTime extends DateTime {
         _wordTime['line2'] = _wordNumber[h + 1];
       }
       if (h + 1 == 12) _wordTime['amPm'] = '';
+    } else if (m < 10) {
+      if (h == 12 || h == 0) _wordTime['amPm'] = '';
+      _wordTime['line1'] = _wordNumber[h];
+      _wordTime['line2'] = 'oh ${_wordNumber[m]}';
     } else {
       if (h == 12 || h == 0) _wordTime['amPm'] = '';
       _wordTime['line1'] = _wordNumber[h];
