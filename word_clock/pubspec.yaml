@@ -22,9 +22,6 @@ flutter:
     - family: JuliusSansOne
       fonts:
         - asset: assets/fonts/Julius_Sans_One/JuliusSansOne-Regular.ttf
-    - family: OpenSans
-      fonts:
-        - asset: assets/fonts/Open_Sans/OpenSans-Light.ttf
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Thin.ttf
