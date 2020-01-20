@@ -97,6 +97,8 @@ class WordTime extends DateTime {
     final m = this.minute;
     int h = this.hour;
 
+    if (h == 12 || h == 0) _wordTime['amPm'] = '';
+
     if (h < 12) {
       (h == 0 && m <= 30) ? _wordTime['amPm'] = '' : _wordTime['amPm'] = 'a.m.';
     } else {
@@ -109,10 +111,8 @@ class WordTime extends DateTime {
     }
 
     if (m == 0 && h == 12) {
-      _wordTime['amPm'] = '';
       _wordTime['line1'] = 'midday';
     } else if (m == 0 && h == 0) {
-      _wordTime['amPm'] = '';
       _wordTime['line1'] = 'midnight';
     } else if (m == 0) {
       _wordTime['line1'] = _wordNumber[h];
@@ -120,11 +120,9 @@ class WordTime extends DateTime {
     } else if (m == 15) {
       _wordTime['line1'] = 'quarter past';
       _wordTime['line2'] = _wordNumber[h];
-      if (h == 12) _wordTime['amPm'] = '';
     } else if (m == 30) {
       _wordTime['line1'] = 'half past';
       _wordTime['line2'] = _wordNumber[h];
-      if (h == 12) _wordTime['amPm'] = '';
     } else if (m == 45) {
       _wordTime['line1'] = 'quarter to';
       if (h == 11 && _wordTime['amPm'] == 'p.m.') {
@@ -134,11 +132,9 @@ class WordTime extends DateTime {
       }
       if (h + 1 == 12) _wordTime['amPm'] = '';
     } else if (m < 10) {
-      if (h == 12 || h == 0) _wordTime['amPm'] = '';
       _wordTime['line1'] = _wordNumber[h];
       _wordTime['line2'] = 'oh ${_wordNumber[m]}';
     } else {
-      if (h == 12 || h == 0) _wordTime['amPm'] = '';
       _wordTime['line1'] = _wordNumber[h];
       _wordTime['line2'] = _wordNumber[m];
     }
