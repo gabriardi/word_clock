@@ -22,7 +22,7 @@ final _lightTheme = {
 
 final _darkTheme = {
   _Element.background: Color.fromRGBO(33, 33, 33, 1),
-  _Element.text: Color.fromRGBO(245, 245, 245, 1),
+  _Element.text: Color.fromRGBO(135, 135, 135, 1),
 };
 
 class WordClock extends StatefulWidget {
